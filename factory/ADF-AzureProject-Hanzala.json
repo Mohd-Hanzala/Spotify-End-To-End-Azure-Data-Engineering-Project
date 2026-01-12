@@ -1,0 +1,9 @@
+{
+	"name": "ADF-AzureProject-Hanzala",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ba8a86f0-804a-4713-a0f7-8148407c77b2",
+		"tenantId": "8223794a-e2ca-4cfb-96cc-60c6278be882"
+	}
+}

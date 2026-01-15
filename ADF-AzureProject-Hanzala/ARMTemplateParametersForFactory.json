@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-AzureProject-Hanzala"
+		},
+		"AzureSql_password": {
+			"value": ""
+		},
+		"datalake_accountKey": {
+			"value": ""
+		},
+		"AzureSql_properties_typeProperties_server": {
+			"value": "azureprojectserverhanzala.database.windows.net"
+		},
+		"AzureSql_properties_typeProperties_database": {
+			"value": "azureprojectdbhanzala"
+		},
+		"AzureSql_properties_typeProperties_userName": {
+			"value": "adminHanzala"
+		},
+		"datalake_properties_typeProperties_url": {
+			"value": "https://azureprojecttstorage.dfs.core.windows.net/"
+		}
+	}
+}

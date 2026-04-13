@@ -24,6 +24,7 @@ This end-to-end data engineering project demonstrates building a complete data p
 **Key Highlights:**
 - Incremental data ingestion with watermark tracking
 - Multi-layer medallion architecture
+- Databricks Autoloader
 - Star Schema dimensional modeling for analytics
 - Delta Live Tables for real-time processing
 - Azure Data Factory pipeline orchestration
@@ -66,7 +67,7 @@ The project implements a three-layer architecture:
 - Language:        PySpark, Python
 - Templating:      Jinja2
 - Storage:         Azure Data Lake (ADLS Gen2), Web Storage
-- Streaming:       Delta Live Tables
+- Streaming:       Databricks Autoloader, Delta Live Tables
 - Data Format:     Parquet, Delta
 - Version Control: Git/GitHub
 - Cloud Platform:  Microsoft Azure
@@ -79,6 +80,7 @@ The project implements a three-layer architecture:
 - Azure Data Factory pipeline creation and scheduling
 - PySpark data transformations and processing
 - Star Schema dimensional modeling
+- Databricks Autoloader
 - Delta Lake and Delta Live Tables
 - Azure Data Lake storage and management
 - Databricks workspace setup and notebook development
@@ -89,6 +91,14 @@ The project implements a three-layer architecture:
 
 ##  Key Components
 
+### Azure SQL Server Source
+
+Azure SQL Server acts as the source system containing transactional data. Connection strings managed securely in Azure Key Vault. Firewall rules control access to the database.
+
+
+<img width="1399" height="723" alt="Screenshot 2026-01-15 201851" src="https://github.com/user-attachments/assets/b406b31c-8609-4275-912d-90d14b48b5a0" />
+
+
 ### Azure Data Factory Pipeline
 
 Azure Data Factory orchestrates the entire data workflow. Pipelines extract data from Azure SQL Server, validate the data, and load it into Azure Data Lake. ForEach activities handle multiple tables dynamically. The pipeline tracks execution metrics and handles errors gracefully.
@@ -98,9 +108,16 @@ Azure Data Factory orchestrates the entire data workflow. Pipelines extract data
  <img width="1919" height="920" alt="Screenshot 2026-01-15 024844" src="https://github.com/user-attachments/assets/e5835f0d-087b-4ca6-9956-31e1ccffec37" />
  <img width="1919" height="901" alt="Screenshot 2026-01-16 013706" src="https://github.com/user-attachments/assets/b4ff2006-337c-4f03-9516-507168c10b8b" />
 
+### Logic Apps Integration
+
+Azure Logic Apps sends notifications when pipelines complete. Email alerts notify teams of successful executions or failures. Integration with Azure Data Factory webhooks enables automated workflow notifications.
 
 
-### Databricks Notebooks
+<img width="1685" height="647" alt="Screenshot 2026-01-15 214238" src="https://github.com/user-attachments/assets/8d6f1d56-604d-4853-b45a-32f4a2a701ce" />
+
+
+## Databricks Notebooks
+### Databricks Autoloader
 
 Notebooks contain PySpark code for data transformations. Bronze layer notebooks read raw SQL data and persist it with timestamps. Silver layer notebooks apply cleaning and validation logic. Gold layer notebooks create the Star Schema fact and dimension tables.
 
@@ -113,6 +130,9 @@ Notebooks contain PySpark code for data transformations. Bronze layer notebooks 
 
 Delta Live Tables provide a declarative approach to building data pipelines. They automatically handle dependencies between tables and enable data quality monitoring. The gold pipeline creates streaming tables that feed dashboards and reports.
 
+<img width="1907" height="906" alt="Screenshot 2026-01-21 014708" src="https://github.com/user-attachments/assets/d8c754fc-49c3-473b-ba0f-565fa36a939f" />
+<img width="332" height="246" alt="Screenshot 2026-01-21 002111" src="https://github.com/user-attachments/assets/98a5e219-2540-4f00-8bb8-f7d3587d48f4" />
+
 
 
 ### Jinja2 Templates
@@ -120,29 +140,9 @@ Delta Live Tables provide a declarative approach to building data pipelines. The
 Dynamic SQL query generation using Jinja2 templating. Configuration files define table mappings and transformation rules. Templates reduce code duplication and improve maintainability across multiple data sources.
 
 
-<img width="1919" height="912" alt="Screenshot 2026-01-19 065644" src="https://github.com/user-attachments/assets/d4f3bffc-3664-4843-8885-3a63909f794d" />
+<img width="1902" height="922" alt="Screenshot 2026-01-20 150745" src="https://github.com/user-attachments/assets/94b617a6-db4a-4063-b544-970108a5dcad" />
 
 <img width="464" height="334" alt="Screenshot 2026-01-20 141921" src="https://github.com/user-attachments/assets/079e62b6-ebd2-49ca-a02e-8828ee955b60" />
-
-
-
-### Logic Apps Integration
-
-Azure Logic Apps sends notifications when pipelines complete. Email alerts notify teams of successful executions or failures. Integration with Azure Data Factory webhooks enables automated workflow notifications.
-
-
-<img width="1685" height="647" alt="Screenshot 2026-01-15 214238" src="https://github.com/user-attachments/assets/8d6f1d56-604d-4853-b45a-32f4a2a701ce" />
-
-
-
-
-### Azure SQL Server Source
-
-Azure SQL Server acts as the source system containing transactional data. Connection strings managed securely in Azure Key Vault. Firewall rules control access to the database.
-
-
-<img width="1399" height="723" alt="Screenshot 2026-01-15 201851" src="https://github.com/user-attachments/assets/b406b31c-8609-4275-912d-90d14b48b5a0" />
-
 
 
 ##  Data Flow
